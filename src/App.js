@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {getActiveUser, selectIsAuthenticated} from "./store/auth";
+import NavBar from "./components/NavBar";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import GuestRoute from "./components/shared/GuestRoute";
+import PrivateRoute from './components/shared/GuestRoute';
 
 function App() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getActiveUser());
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar/>
+        <Switch>
+          <GuestRoute exact path="/register">
+            <Register/>
+          </GuestRoute>
+          <GuestRoute exact path="/login">
+            <Login/>
+          </GuestRoute>
+        </Switch>
+      </Router>
     </div>
   );
 }
