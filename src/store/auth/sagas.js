@@ -8,7 +8,7 @@ function* handleRegister(action){
         yield put(setToken(token));
         yield put(setActiveUser(user));
     } catch (error){
-        console.log(error);
+        alert(error.message);
     }
 }
 
@@ -18,7 +18,7 @@ function* handleLogin(action){
         yield put(setToken(token));
         yield put(setActiveUser(user));
     } catch (error) {
-        console.log(error);
+        alert(error.message);
     }
 }
 
@@ -28,7 +28,7 @@ function* handleLogout(){
         yield put(setToken(null));
         yield put(setActiveUser(null));
     } catch (error) {
-        console.log(error);
+        alert(error.message);
     }
 }
 
@@ -37,7 +37,7 @@ function* handleGetActiveUser(){
         const activeUser = yield call(authService.getActiveUser);
         yield put(setActiveUser(activeUser));
     } catch (error) {
-        console.log(error);
+        alert(error.message);
     }
 }
 
