@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import GuestRoute from "./components/shared/GuestRoute";
 import PrivateRoute from './components/shared/GuestRoute';
+import GalleriesApp from './pages/GalleriesApp';
 
 function App() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -30,6 +31,9 @@ function App() {
           <GuestRoute exact path="/login">
             <Login/>
           </GuestRoute>
+          <Route exact path="/">
+            <GalleriesApp/>
+          </Route>
         </Switch>
       </Router>
     </div>

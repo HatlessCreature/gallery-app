@@ -19,7 +19,7 @@ const galleriesSlice = createSlice({
 },
     reducers: {
         setGalleries(state, action){
-            state.galleries = action.payload;
+            state.page = action.payload;
         },
         setGallery(state, action){
             state.gallery = action.payload;
