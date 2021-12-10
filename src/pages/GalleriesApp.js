@@ -1,27 +1,35 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGalleries, getGalleries, selectSearchTerm } from "../store/galleries";
+import { selectGalleries, getGalleries, selectSearchTerm, selectSearchUserId, setSearchUserId } from "../store/galleries";
+import { selectActiveUser, selectIsAuthenticated } from "../store/auth";
 import GalleryRow from "../components/GalleryRow";
 import GallerySearch from "../components/GallerySearch";
 
-export default function GalleriesApp() {
+export default function GalleriesApp({searchMyGalleries} = null) {
     const galleries = useSelector(selectGalleries);
     const term = useSelector(selectSearchTerm);
+    const activeUser = useSelector(selectActiveUser);
+    const isAuthenticated = useSelector(selectIsAuthenticated);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getGalleries());
-    }, [dispatch]);
+        dispatch(setSearchUserId(searchMyGalleries));
+    }, [searchMyGalleries]);
+
+
+    useEffect(() => {
+        dispatch(getGalleries({page: 1, term: term, userId: searchMyGalleries}));
+    }, [searchMyGalleries ,dispatch]);
 
     function handlePaginate(page) {
-        dispatch(getGalleries({page: page, term: term}));
+        dispatch(getGalleries({page: page, term: term, userId: searchMyGalleries}));
     }
 
     return (
         <div>
             <GallerySearch/>
-            <h1>Galleries</h1>
+            <h1>{searchMyGalleries && ("My ")}Galleries</h1>
 
             {galleries?.data.length ? (
                 <div>

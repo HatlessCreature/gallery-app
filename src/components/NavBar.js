@@ -29,7 +29,10 @@ export default function NavBar(){
                 {isAuthenticated ? (
                     <>
                         <li>
-                            <Link to="/create">Create Gallery</Link>
+                            <Link to="/galleries/me">My Galleries</Link>
+                        </li>
+                        <li>
+                            <Link to="/galleries/create">Create Gallery</Link>
                         </li>
                         <button onClick={handleLogout}>Logout</button>
                     </>

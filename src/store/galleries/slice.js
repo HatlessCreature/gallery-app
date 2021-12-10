@@ -27,9 +27,12 @@ const galleriesSlice = createSlice({
         setSearchTerm(state, action){
             state.term = action.payload;
         },
+        setSearchUserId(state, action){
+            state.userId = action.payload;
+        },
         ...middlewareActions
     }
 });
 
-export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery, setSearchTerm } = galleriesSlice.actions;
+export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery, setSearchTerm, setSearchUserId } = galleriesSlice.actions;
 export default galleriesSlice.reducer;

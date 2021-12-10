@@ -28,6 +28,8 @@ function* handleLogout(){
         yield put(setToken(null));
         yield put(setActiveUser(null));
     } catch (error) {
+        yield put(setToken(null));
+        yield put(setActiveUser(null));
         alert(error.message);
     }
 }

@@ -2,15 +2,16 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getActiveUser, selectIsAuthenticated} from "./store/auth";
+import {getActiveUser, selectIsAuthenticated, selectActiveUser} from "./store/auth";
 import NavBar from "./components/NavBar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import GuestRoute from "./components/shared/GuestRoute";
-import PrivateRoute from './components/shared/GuestRoute';
+import PrivateRoute from './components/shared/PrivateRoute';
 import GalleriesApp from './pages/GalleriesApp';
 
 function App() {
+  const activeUser = useSelector(selectActiveUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch = useDispatch();
 
@@ -34,6 +35,9 @@ function App() {
           <Route exact path="/">
             <GalleriesApp/>
           </Route>
+          <PrivateRoute exact path="/galleries/me">
+            <GalleriesApp searchMyGalleries={isAuthenticated ? (activeUser?.id) : null}/>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>

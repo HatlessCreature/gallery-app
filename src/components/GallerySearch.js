@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGalleries, setSearchTerm } from "../store/galleries";
-import { selectSearchTerm } from "../store/galleries";
+import { getGalleries, selectSearchUserId, setSearchTerm } from "../store/galleries";
+import { selectSearchTerm, setSearchUserId } from "../store/galleries";
 
 export default function GallerySearch() {
     const term = useSelector(selectSearchTerm);
+    const userId = useSelector(selectSearchUserId);
     const dispatch = useDispatch();
 
     function handleChangeSearchTerm(event) {
@@ -12,7 +12,7 @@ export default function GallerySearch() {
     }
 
     function handleSearch() {
-        dispatch(getGalleries({page: 1, term: term}));
+        dispatch(getGalleries({page: 1, term: term, userId: userId}));
     }
 
     return (

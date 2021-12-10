@@ -9,3 +9,7 @@ export function selectGallery(state){
 export function selectSearchTerm(state){
     return state.galleries.term;
 }
+
+export function selectSearchUserId(state){
+    return state.galleries.userId;
+}

@@ -5,7 +5,7 @@ import galleryService from "../../services/GalleryService";
 function* handleGetGalleries(action){
     try{
         console.log(action);
-        const galleries = yield call(galleryService.getGalleries, action.payload?.page, action.payload?.term);
+        const galleries = yield call(galleryService.getGalleries, action.payload?.page, action.payload?.term, action.payload?.userId);
         yield put(setGalleries(galleries));
     } catch (error){
         alert(error.message);
