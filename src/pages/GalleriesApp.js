@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGalleries, getGalleries } from "../store/galleries";
 import GalleryRow from "../components/GalleryRow";
@@ -12,18 +12,30 @@ export default function GalleriesApp() {
         dispatch(getGalleries());
     }, [dispatch]);
 
+    function handlePaginate(page) {
+        dispatch(getGalleries(page));
+    }
+
     return (
         <div>
             <h1>Galleries</h1>
 
             {galleries?.data.length ? (
-                <ul>
-                    {galleries.data.map((gallery) => (
-                        <GalleryRow key={gallery.id} gallery={gallery} />
-                    ))}
-                </ul>
+                <div>
+                    <ul>
+                        {galleries.data.map((gallery) => (
+                            <GalleryRow key={gallery.id} gallery={gallery} />
+                        ))}
+                    </ul>
+                    {galleries.current_page > 1 && (
+                        <button onClick={() => handlePaginate(galleries.current_page - 1)}>Last Page</button>
+                    )}    
+                    {galleries.current_page !== galleries.last_page && (
+                        <button onClick={() => handlePaginate(galleries.current_page + 1)}>Next Page</button>
+                    )}
+                </div>
             ) : (
-                <div>There are no galleries that meet the search term.</div>
+                <div>There are no requested galleries.</div>
             )}
         </div>
     );
