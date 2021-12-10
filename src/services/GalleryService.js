@@ -1,7 +1,7 @@
 import HttpService from "./HttpService";
 
 class GalleryService extends HttpService{
-    getGalleries = async (page, term = "") => {
+    getGalleries = async (page = 0, term = "") => {
         
         let endpoint = `/galleries/?page=${page}`;
         if (term){

@@ -1,11 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGalleries, getGalleries } from "../store/galleries";
+import { selectGalleries, getGalleries, selectSearchTerm } from "../store/galleries";
 import GalleryRow from "../components/GalleryRow";
+import GallerySearch from "../components/GallerySearch";
 
 export default function GalleriesApp() {
     const galleries = useSelector(selectGalleries);
+    const term = useSelector(selectSearchTerm);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -13,11 +15,12 @@ export default function GalleriesApp() {
     }, [dispatch]);
 
     function handlePaginate(page) {
-        dispatch(getGalleries(page));
+        dispatch(getGalleries({page: page, term: term}));
     }
 
     return (
         <div>
+            <GallerySearch/>
             <h1>Galleries</h1>
 
             {galleries?.data.length ? (

@@ -24,9 +24,12 @@ const galleriesSlice = createSlice({
         setGallery(state, action){
             state.gallery = action.payload;
         },
+        setSearchTerm(state, action){
+            state.term = action.payload;
+        },
         ...middlewareActions
     }
 });
 
-export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery } = galleriesSlice.actions;
+export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery, setSearchTerm } = galleriesSlice.actions;
 export default galleriesSlice.reducer;

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getGalleries } from "../store/galleries";
+import { useDispatch, useSelector } from "react-redux";
+import { getGalleries, setSearchTerm } from "../store/galleries";
+import { selectSearchTerm } from "../store/galleries";
 
 export default function GallerySearch() {
-    const [searchTerm, setSearchTerm] = useState("");
+    const term = useSelector(selectSearchTerm);
     const dispatch = useDispatch();
 
     function handleChangeSearchTerm(event) {
-        setSearchTerm(event.target.value);
+        dispatch(setSearchTerm(event.target.value));
     }
 
     function handleSearch() {
-        dispatch(getGalleries(searchTerm));
+        dispatch(getGalleries({page: 1, term: term}));
     }
 
     return (

@@ -16,7 +16,7 @@ export default function GalleryRow({ gallery }) {
         </div>
         <div style={{ padding: "10px" }}>{gallery.title}</div>
         <div style={{ padding: "10px" }}>{gallery.description}</div>
-        <div style={{ padding: "10px" }}>By {gallery.user.first_name} {gallery.user.last_name}</div>
+        <div style={{ padding: "10px" }}>By: {gallery.user.first_name} {gallery.user.last_name}</div>
 
       </div>
     );
