@@ -1,7 +1,9 @@
 import { put, call, takeLatest } from "@redux-saga/core/effects";
 import { getGalleries, getGallery, setGalleries, setGallery, 
-    createGallery, editGallery, deleteGallery, setPaginatedGalleries } from "./slice";
+    createGallery, editGallery, deleteGallery, setPaginatedGalleries,
+    createComment, deleteComment, setGalleryWithNewComment } from "./slice";
 import galleryService from "../../services/GalleryService";
+import commentService from "../../services/CommentService";
 
 function* handleGetGalleries(action){
     try{
@@ -53,6 +55,25 @@ function* handleDeleteGallery(action){
     }
 }
 
+function* handleCreateComment(action){
+    try {
+        console.log(action);
+        const newComment = yield call(commentService.createComment, action.payload.content, action.payload.galleryId);
+        yield put(setGalleryWithNewComment(newComment));
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+function* handleDeleteComment(action){
+    try {
+        yield call(commentService.deleteComment, action.payload)
+        yield put(deleteComment(action.payload));
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
 export function* watchGetGalleries(){
     yield takeLatest(getGalleries.type, handleGetGalleries);
 }
@@ -71,4 +92,12 @@ export function* watchEditGallery(){
 
 export function* watchDeleteGallery(){
     yield takeLatest(deleteGallery.type, handleDeleteGallery);
+}
+
+export function* watchCreateComment(){
+    yield takeLatest(createComment.type, handleCreateComment);
+}
+
+export function* watchDeleteComment(){
+    yield takeLatest(deleteComment.type, handleDeleteComment);
 }

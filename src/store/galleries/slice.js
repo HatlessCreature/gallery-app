@@ -5,7 +5,9 @@ const middlewareActions = {
     getGallery() {},
     createGallery() {},
     editGallery() {},
-    deleteGallery() {}
+    deleteGallery() {},
+    createComment() {},
+    deleteComment() {}
 };
 
 const galleriesSlice = createSlice({
@@ -15,7 +17,11 @@ const galleriesSlice = createSlice({
             data: [],
             current_page: 0,
             last_page: 0,
-    },
+        },
+        gallery: null ,
+        term: null,
+        userId: null
+
 },
     reducers: {
         setGalleries(state, action){
@@ -34,10 +40,14 @@ const galleriesSlice = createSlice({
             state.page.data = [...state.page.data, ...action.payload.data];
             state.page.current_page = action.payload.current_page;
         },
+        setGalleryWithNewComment(state, action){
+            state.gallery = {...state.gallery, comments: [...state.gallery.comments, action.payload]};
+        },
         ...middlewareActions
     }
 });
 
 export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, 
-    editGallery, deleteGallery, setSearchTerm, setSearchUserId, setPaginatedGalleries } = galleriesSlice.actions;
+    editGallery, deleteGallery, setSearchTerm, setSearchUserId, setPaginatedGalleries,
+    createComment, deleteComment, setGalleryWithNewComment } = galleriesSlice.actions;
 export default galleriesSlice.reducer;
