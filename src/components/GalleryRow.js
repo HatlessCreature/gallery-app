@@ -14,7 +14,7 @@ export default function GalleryRow({ gallery }) {
         }}
       >
         <div style={{ padding: "10px" }}>
-          <img src={gallery?.images[0].url} width="100" alt="Gallery cover" />
+          <img src={gallery?.images[0]?.url} width="100" alt="Gallery cover" />
         </div>
         <div style={{ padding: "10px" }}>{gallery?.title}</div>
         <div style={{ padding: "10px" }}>{gallery?.description}</div>

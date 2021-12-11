@@ -30,9 +30,14 @@ const galleriesSlice = createSlice({
         setSearchUserId(state, action){
             state.userId = action.payload;
         },
+        setPaginatedGalleries(state, action){
+            state.page.data = [...state.page.data, ...action.payload.data];
+            state.page.current_page = action.payload.current_page;
+        },
         ...middlewareActions
     }
 });
 
-export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery, setSearchTerm, setSearchUserId } = galleriesSlice.actions;
+export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, 
+    editGallery, deleteGallery, setSearchTerm, setSearchUserId, setPaginatedGalleries } = galleriesSlice.actions;
 export default galleriesSlice.reducer;

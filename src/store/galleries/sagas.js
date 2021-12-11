@@ -1,12 +1,17 @@
 import { put, call, takeLatest } from "@redux-saga/core/effects";
-import { getGalleries, getGallery, setGalleries, setGallery, createGallery, editGallery, deleteGallery } from "./slice";
+import { getGalleries, getGallery, setGalleries, setGallery, 
+    createGallery, editGallery, deleteGallery, setPaginatedGalleries } from "./slice";
 import galleryService from "../../services/GalleryService";
 
 function* handleGetGalleries(action){
     try{
         console.log(action);
         const galleries = yield call(galleryService.getGalleries, action.payload?.page, action.payload?.term, action.payload?.userId);
-        yield put(setGalleries(galleries));
+        if(action.payload?.page > 1){
+            yield put(setPaginatedGalleries(galleries));
+        } else {
+            yield put(setGalleries(galleries));
+        }
     } catch (error){
         alert(error.message);
     }

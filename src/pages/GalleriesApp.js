@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGalleries, getGalleries, selectSearchTerm, selectSearchUserId, setSearchUserId, setSearchTerm } from "../store/galleries";
+import { selectGalleries, getGalleries, selectSearchTerm, setSearchUserId } from "../store/galleries";
 import { selectActiveUser, selectIsAuthenticated } from "../store/auth";
 import { useParams } from "react-router-dom";
 import GalleryRow from "../components/GalleryRow";
@@ -46,7 +46,7 @@ export default function GalleriesApp({selfId} = null) {
     return (
         <div>
             <GallerySearch/>
-            <h1>{selfId && ("My ")}Galleries</h1>
+            <h1>{selfId && ("My ")}{id && (`${galleries?.data[0]?.user?.first_name}'s `)}Galleries</h1>
 
             {galleries?.data.length ? (
                 <div>
@@ -55,11 +55,8 @@ export default function GalleriesApp({selfId} = null) {
                             <GalleryRow key={gallery.id} gallery={gallery} />
                         ))}
                     </ul>
-                    {galleries.current_page > 1 && (
-                        <button onClick={() => handlePaginate(galleries.current_page - 1)}>Last Page</button>
-                    )}    
                     {galleries.current_page !== galleries.last_page && (
-                        <button onClick={() => handlePaginate(galleries.current_page + 1)}>Next Page</button>
+                        <button onClick={() => handlePaginate(galleries.current_page + 1)}>Load More</button>
                     )}
                 </div>
             ) : (
