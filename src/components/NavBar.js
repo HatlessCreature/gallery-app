@@ -24,7 +24,7 @@ export default function NavBar(){
                     </h4>
                 )}
                 <li>
-                    <Link to="/">All Galleries</Link>
+                    <Link to="/galleries">All Galleries</Link>
                 </li>
                 {isAuthenticated ? (
                     <>

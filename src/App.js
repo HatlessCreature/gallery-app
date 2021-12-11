@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getActiveUser, selectIsAuthenticated, selectActiveUser} from "./store/auth";
@@ -33,10 +33,16 @@ function App() {
             <Login/>
           </GuestRoute>
           <Route exact path="/">
+            <Redirect to="/galleries"/>
+          </Route>
+          <Route exact path="/galleries">
             <GalleriesApp/>
           </Route>
           <PrivateRoute exact path="/galleries/me">
-            <GalleriesApp searchMyGalleries={isAuthenticated ? (activeUser?.id) : null}/>
+            <GalleriesApp selfId={isAuthenticated ? (activeUser?.id) : null}/>
+          </PrivateRoute>
+          <PrivateRoute exact path="/authors/:id">
+            <GalleriesApp />
           </PrivateRoute>
         </Switch>
       </Router>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function GalleryRow({ gallery }) {
     return (
       <div
@@ -12,11 +14,13 @@ export default function GalleryRow({ gallery }) {
         }}
       >
         <div style={{ padding: "10px" }}>
-          <img src={gallery.images[0].url} width="100" alt="Gallery cover" />
+          <img src={gallery?.images[0].url} width="100" alt="Gallery cover" />
         </div>
-        <div style={{ padding: "10px" }}>{gallery.title}</div>
-        <div style={{ padding: "10px" }}>{gallery.description}</div>
-        <div style={{ padding: "10px" }}>By: {gallery.user.first_name} {gallery.user.last_name}</div>
+        <div style={{ padding: "10px" }}>{gallery?.title}</div>
+        <div style={{ padding: "10px" }}>{gallery?.description}</div>
+        <div>
+          By:<Link to={`/authors/${gallery?.user.id}`} style={{ padding: "10px" }}>{gallery?.user.first_name} {gallery?.user.last_name}</Link>
+        </div>
 
       </div>
     );
