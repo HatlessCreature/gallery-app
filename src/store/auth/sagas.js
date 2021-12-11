@@ -8,7 +8,7 @@ function* handleRegister(action){
         yield put(setToken(token));
         yield put(setActiveUser(user));
     } catch (error){
-        alert(error.message);
+        alert("Invalid input data");
     }
 }
 
@@ -18,7 +18,7 @@ function* handleLogin(action){
         yield put(setToken(token));
         yield put(setActiveUser(user));
     } catch (error) {
-        alert(error.message);
+        alert("Invalid credentials");
     }
 }
 
@@ -30,7 +30,7 @@ function* handleLogout(){
     } catch (error) {
         yield put(setToken(null));
         yield put(setActiveUser(null));
-        alert(error.message);
+        alert("Can not logout as guest");
     }
 }
 
@@ -39,7 +39,9 @@ function* handleGetActiveUser(){
         const activeUser = yield call(authService.getActiveUser);
         yield put(setActiveUser(activeUser));
     } catch (error) {
-        alert(error.message);
+        yield put(setToken(null));
+        yield put(setActiveUser(null));
+        alert("Session timed out");
     }
 }
 

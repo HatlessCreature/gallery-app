@@ -46,7 +46,7 @@ export default function GalleriesApp({selfId} = null) {
     return (
         <div>
             <GallerySearch/>
-            <h1>{selfId && ("My ")}{id && (`${galleries?.data[0]?.user?.first_name}'s `)}Galleries</h1>
+            <h1>{selfId && ("My ")}{id && galleries.data.length ? (`${galleries?.data[0]?.user?.first_name}'s `) : (<></>)}Galleries</h1>
 
             {galleries?.data.length ? (
                 <div>
@@ -60,7 +60,7 @@ export default function GalleriesApp({selfId} = null) {
                     )}
                 </div>
             ) : (
-                <div>There are no requested galleries.</div>
+                <div>There are no galleries to display.</div>
             )}
         </div>
     );
