@@ -22,6 +22,7 @@ class GalleryService extends HttpService{
     }
 
     createGallery = async (galleryData) => {
+        console.log(galleryData);
         const { data } = await this.client.post("/galleries", galleryData);
         return data;
     }

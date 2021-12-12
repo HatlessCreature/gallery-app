@@ -10,6 +10,7 @@ import GuestRoute from "./components/shared/GuestRoute";
 import PrivateRoute from './components/shared/PrivateRoute';
 import GalleriesApp from './pages/GalleriesApp';
 import GalleryApp from './pages/GalleryApp';
+import CreateGallery from './pages/CreateGallery';
 
 function App() {
   const activeUser = useSelector(selectActiveUser);
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <PrivateRoute exact path="/galleries/me">
             <GalleriesApp selfId={isAuthenticated ? (activeUser?.id) : null}/>
+          </PrivateRoute>
+          <PrivateRoute exact path="/galleries/create">
+            <CreateGallery/>
           </PrivateRoute>
           <Route exact path="/galleries/:id">
             <GalleryApp/>

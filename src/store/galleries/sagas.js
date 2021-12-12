@@ -30,7 +30,7 @@ function* handleGetGallery(action){
 
 function* handleCreateGallery(action){
     try {
-        const newGallery = yield call(galleryService.createGallery, action.payload.data);
+        const newGallery = yield call(galleryService.createGallery, action.payload);
         yield put(createGallery(newGallery));
     } catch (error) {
         alert(error.message);
