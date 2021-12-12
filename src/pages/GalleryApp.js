@@ -102,7 +102,7 @@ export default function GalleryApp(){
                         )}
                     </div>
                     {activeUser && (activeUser.id === gallery.user_id) ? (
-                        <Link to={`/edit-gallery/${gallery.user_id}`}>Edit Gallery</Link>
+                        <Link to={`/edit-gallery/${gallery.id}`}>Edit Gallery</Link>
                     ) : (
                         <></>
                     )}
