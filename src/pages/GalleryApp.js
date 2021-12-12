@@ -15,23 +15,25 @@ export default function GalleryApp(){
     const formattedDate = useFormattedDate(gallery ? gallery.created_at : "", "dd-MM-yyyy HH:mm");
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const activeUser = useSelector(selectActiveUser);
-    const [newComment, setNewComment] = useState("");
+    const [newComment, setNewComment] = useState(
+        {content: ""});
 
     useEffect(() => {
         dispatch(getGallery(id));
     }, [id, dispatch]);
 
     const handleContentChange = (e) => {
-        setNewComment(e.target.value);
+        setNewComment({ ...newComment, content: e.target.value});
     };
 
-    const handleAddNewComment = () => {
+    const handleAddNewComment = (e) => {
+        e.preventDefault();
         dispatch(createComment({ content: newComment, galleryId: id}));
     }
 
     const handleDeleteComment = (id) => {
-        const response = prompt("Are you sure you want to delete your comment? If so, type 'y' or 'yes'");
-        if (response !== "yes" || "y"){
+        const response = prompt("Are you sure you want to delete your comment? If so, type'yes'");
+        if (response !== "yes"){
             return;
         }
         dispatch(deleteComment(id));
@@ -107,7 +109,7 @@ export default function GalleryApp(){
                         {gallery.comments.length ? (<h4>Comments</h4>) : (<h4>No Comments</h4>)}
                         <ul style={{listStyleType: "none"}}>
                             {gallery.comments.map((comment) => (
-                                <li key={comment.id}>
+                                <li key={comment.id} id={`comment${comment.id}`}>
                                     <div>{comment.user.first_name} {comment.user.last_name}</div>
                                     <div>{format(new Date(comment.created_at), "dd-MM-yyyy HH:mm")}</div>
                                     <p>{comment.content}</p>
@@ -125,10 +127,10 @@ export default function GalleryApp(){
                 )}
 
                 {isAuthenticated && (
-                    <div >
-                        <textarea rows="4" cols="50" onChange={handleContentChange} value={newComment} placeholder="Enter comment"/>
-                        <button onClick={handleAddNewComment}>Create comment</button>
-                    </div>
+                    <form onSubmit={handleAddNewComment}>
+                        <textarea required rows="4" cols="50" onChange={handleContentChange} value={newComment.content} placeholder="Enter comment" />
+                        <button >Create comment</button>
+                    </form>
                 )}
             </div>
             

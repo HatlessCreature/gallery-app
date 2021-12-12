@@ -43,11 +43,14 @@ const galleriesSlice = createSlice({
         setGalleryWithNewComment(state, action){
             state.gallery = {...state.gallery, comments: [...state.gallery.comments, action.payload]};
         },
+        setGalleryWithoutComment(state, action){
+            state.gallery = {...state.gallery, comments: state.gallery.comments.filter((id) => id !== action.payload)};
+        },
         ...middlewareActions
     }
 });
 
 export const { getGalleries, getGallery, setGalleries, setGallery, createGallery, 
     editGallery, deleteGallery, setSearchTerm, setSearchUserId, setPaginatedGalleries,
-    createComment, deleteComment, setGalleryWithNewComment } = galleriesSlice.actions;
+    createComment, deleteComment, setGalleryWithNewComment, setGalleryWithoutComment } = galleriesSlice.actions;
 export default galleriesSlice.reducer;

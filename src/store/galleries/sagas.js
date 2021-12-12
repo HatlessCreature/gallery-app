@@ -1,9 +1,9 @@
 import { put, call, takeLatest } from "@redux-saga/core/effects";
 import { getGalleries, getGallery, setGalleries, setGallery, 
     createGallery, editGallery, deleteGallery, setPaginatedGalleries,
-    createComment, deleteComment, setGalleryWithNewComment } from "./slice";
+    createComment, deleteComment, setGalleryWithNewComment, setGalleryWithoutComment } from "./slice";
 import galleryService from "../../services/GalleryService";
-import commentService from "../../services/CommentService";
+
 
 function* handleGetGalleries(action){
     try{
@@ -58,17 +58,17 @@ function* handleDeleteGallery(action){
 function* handleCreateComment(action){
     try {
         console.log(action);
-        const newComment = yield call(commentService.createComment, action.payload.content, action.payload.galleryId);
+        const newComment = yield call(galleryService.createComment, action.payload.content, action.payload.galleryId);
         yield put(setGalleryWithNewComment(newComment));
-    } catch (error) {
-        alert(error.message);
+    } catch ({message}) {
+        alert(message);
     }
 }
 
 function* handleDeleteComment(action){
     try {
-        yield call(commentService.deleteComment, action.payload)
-        yield put(deleteComment(action.payload));
+        const comment = yield call(galleryService.deleteComment, action.payload)
+        yield put(setGalleryWithoutComment(comment));
     } catch (error) {
         alert(error.message);
     }
