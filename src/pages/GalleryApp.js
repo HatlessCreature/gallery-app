@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGallery, selectGallery, createComment, deleteComment} from "../store/galleries";
+import { getGallery, selectGallery, createComment, deleteComment, deleteGallery} from "../store/galleries";
 import useFormattedDate from '../hooks/useFormattedDate';
 import { Carousel } from "react-bootstrap";
 import { format } from 'date-fns';
@@ -32,11 +32,19 @@ export default function GalleryApp(){
     }
 
     const handleDeleteComment = (id) => {
-        const response = prompt("Are you sure you want to delete your comment? If so, type'yes'");
+        const response = prompt("Are you sure you want to delete your comment? If so, type'yes' ");
         if (response !== "yes"){
             return;
         }
         dispatch(deleteComment(id));
+    }
+
+    const handleDeleteGallery = () => {
+        const response = prompt("Are you sure you want to delete your gallery? If so, type'yes' ");
+        if (response !== "yes"){
+            return;
+        }
+        dispatch(deleteGallery(id));
     }
 
     return (
@@ -86,6 +94,23 @@ export default function GalleryApp(){
                             }
                         </Carousel>
                     </div>
+                    <div>
+                        {gallery && gallery.description ? (
+                            <p>{gallery.description}</p>
+                        ) : (
+                            <p>No Descripton</p>
+                        )}
+                    </div>
+                    {activeUser && (activeUser.id === gallery.user_id) ? (
+                        <Link to={`/edit-gallery/${gallery.user_id}`}>Edit Gallery</Link>
+                    ) : (
+                        <></>
+                    )}
+                    {activeUser && (activeUser.id === gallery.user_id) ? (
+                        <button onClick={handleDeleteGallery}>Delete gallery</button>
+                    ) : (
+                        <></>
+                    )}
                 </>
             ) : (
                 <div>Loading...</div>

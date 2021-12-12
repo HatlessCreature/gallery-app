@@ -32,8 +32,8 @@ class GalleryService extends HttpService{
         return data;
     }
 
-    editGallery = async (gallery) => {
-        const { data } = await this.client.delete(`/galleries/${gallery}`);
+    editGallery = async (galleryId, gallery) => {
+        const { data } = await this.client.put(`/galleries/${galleryId}`, gallery);
         return data;
     }
 

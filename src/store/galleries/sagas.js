@@ -8,7 +8,6 @@ import galleryService from "../../services/GalleryService";
 
 function* handleGetGalleries(action){
     try{
-        console.log(action);
         const galleries = yield call(galleryService.getGalleries, action.payload?.page, action.payload?.term, action.payload?.userId);
         if(action.payload?.page > 1){
             yield put(setPaginatedGalleries(galleries));
@@ -40,8 +39,10 @@ function* handleCreateGallery(action){
 
 function* handleEditGallery(action){
     try {
-        const gallery = yield call(galleryService.editGallery, action.payload.id, action.payload.data);
-        yield put(editGallery(gallery));
+        console.log(action);
+        const gallery = yield call(galleryService.editGallery, action.payload.newGallery.galleryId, action.payload.newGallery);
+        const galleries = yield call(galleryService.getGalleries, 1, null, null);
+        yield put(setGalleries(galleries));
     } catch (error) {
         alert(error.message);
     }
@@ -49,8 +50,10 @@ function* handleEditGallery(action){
 
 function* handleDeleteGallery(action){
     try {
-        yield call(galleryService.deleteGallery, action.payload)
-        yield put(deleteGallery(action.payload));
+        console.log(action);
+        yield call(galleryService.deleteGallery, action.payload);
+        const galleries = yield call(galleryService.getGalleries, 1, null, null);
+        yield put(setGalleries(galleries));
     } catch (error) {
         alert(error.message);
     }

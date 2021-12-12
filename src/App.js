@@ -52,6 +52,9 @@ function App() {
           <Route exact path="/authors/:id">
             <GalleriesApp />
           </Route>
+          <PrivateRoute exact path ="/edit-gallery/:id">
+            <CreateGallery/>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>

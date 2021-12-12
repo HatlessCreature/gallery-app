@@ -9,6 +9,7 @@ export default function CreateGallery() {
     const retrievedGallery = useSelector(selectGallery);
     const { id } = useParams();
     const history = useHistory();
+    const activeUser = useSelector(selectActiveUser);
     const [newGallery, setNewGallery] = useState({
         title: "",
         description: "",
@@ -23,7 +24,7 @@ export default function CreateGallery() {
         e.preventDefault();
         
         if (id) {
-            dispatch(editGallery(id, newGallery))
+            dispatch(editGallery({newGallery:{ galleryId: id, title: newGallery.title, description: newGallery.description, images: newGallery.images}}))
         } else {
             dispatch(createGallery(newGallery))
         }
@@ -56,6 +57,7 @@ export default function CreateGallery() {
     useEffect(() => {
         if(id){
             setNewGallery(retrievedGallery);
+            setNewImages(retrievedGallery?.images);
         }
     }, [id])
 
@@ -64,30 +66,30 @@ export default function CreateGallery() {
             <form onSubmit={handleSubmit}>
                 <h2 style={{ padding: "10px" }}>{id ? "Edit Gallery" : "Create Gallery"}</h2>
                 <div style={{ padding: "10px" }}>
-                    <input required type="text" id="title" placeholder="Title" value={newGallery.title} 
+                    <input required type="text" id="title" placeholder="Title" value={newGallery?.title} 
                     onChange={({ target }) =>
                     setNewGallery({ ...newGallery, title: target.value })}/>
                 </div>
                 <div style={{ padding: "10px" }}>
-                    <textarea cols="50" rows="4" type="text" id="description" placeholder="Description" value={newGallery.description} 
+                    <textarea cols="50" rows="4" type="text" id="description" placeholder="Description" value={newGallery?.description} 
                     onChange={({ target }) =>
                     setNewGallery({ ...newGallery, description: target.value })}/>
                 </div>
-                {newImages.map((x, i) => {
+                {newImages && newImages.map((x, i) => {
                     return (
                         <div>
-                            <input required name="url" value={x.url} placeholder="Image url goes here" onChange={e => handleInputChange(e, i)}/>
+                            <input required name="url" value={x.url} placeholder="Image url goes here" onChange={e => handleInputChange(e, i)} key={i}/>
                             <span>
-                                {newImages.length !== 1 && <button onClick={() => handleRemoveClick(i)}>Remove</button>}
+                                {newImages?.length !== 1 && <button onClick={() => handleRemoveClick(i)}>Remove</button>}
                             </span>
                             <div>
-                                {newImages.length - 1 === i && <button onClick={handleAddClick}>Add more</button>}
+                                {newImages?.length - 1 === i && <button onClick={handleAddClick}>Add more</button>}
                             </div>
                         </div>
                     )
                 })}
 
-                <button type="submit">{id ? "Edit" : "Submit"}</button>
+                <button type="submit">{id ? "Edit" : "Submit"}</button>     
             </form>
 
         </div>
