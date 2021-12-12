@@ -34,7 +34,7 @@ export default function GalleryRow({ gallery }) {
           )}
           
         <div style={{ padding: "10px" }}>
-          By: <Link to={`/authors/${gallery?.user.id}`}>{gallery?.user.first_name} {gallery?.user.last_name}</Link>
+          By: <Link to={`/authors/${gallery?.user.id}`}>{gallery?.user?.first_name} {gallery?.user?.last_name}</Link>
         </div>
 
       </div>

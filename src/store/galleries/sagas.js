@@ -1,7 +1,8 @@
 import { put, call, takeLatest } from "@redux-saga/core/effects";
 import { getGalleries, getGallery, setGalleries, setGallery, 
     createGallery, editGallery, deleteGallery, setPaginatedGalleries,
-    createComment, deleteComment, setGalleryWithNewComment, setGalleryWithoutComment } from "./slice";
+    createComment, deleteComment, setGalleryWithNewComment, setGalleryWithoutComment,
+    setGalleriesWithNewGallery } from "./slice";
 import galleryService from "../../services/GalleryService";
 
 
@@ -31,7 +32,7 @@ function* handleGetGallery(action){
 function* handleCreateGallery(action){
     try {
         const newGallery = yield call(galleryService.createGallery, action.payload);
-        yield put(createGallery(newGallery));
+        yield put(setGalleriesWithNewGallery(newGallery));
     } catch (error) {
         alert(error.message);
     }

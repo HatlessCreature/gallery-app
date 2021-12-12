@@ -76,9 +76,9 @@ export default function GalleryApp(){
                         <Carousel>
                             {gallery.images && gallery.images.length ?
                                 gallery.images.map((image, index) => (
-                                    <Carousel.Item key={image.id}>
+                                    <Carousel.Item key={image.id} >
                                         <a key={index} target="_blank" href={image.url}>
-                                            <img key={image.id} src={image.url} alt="Gallery carousel element"/>
+                                            <img key={image.id} src={image.url} alt="Gallery carousel element" style={{maxHeight:"768px" , maxWidth:"1024px"}}/>
                                         </a>
                                     </Carousel.Item>
                                 )) :
