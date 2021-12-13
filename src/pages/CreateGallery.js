@@ -24,9 +24,29 @@ export default function CreateGallery() {
         e.preventDefault();
         
         if (id) {
+            if (!retrievedGallery) {
+                alert("You cannot edit other people's galleries");
+                history.push("/galleries");
+                return;
+            }
             dispatch(editGallery({newGallery:{ galleryId: id, title: newGallery.title, description: newGallery.description, images: newGallery.images}}))
+            setTimeout(() => {
+                history.push(`/galleries/${retrievedGallery.id}`);
+            }, 1500);
         } else {
             dispatch(createGallery(newGallery))
+            setTimeout(() => {
+                history.push("/galleries/me");
+            }, 1500);
+        }
+    }
+
+    const handleCancel = (e) =>{
+        e.preventDefault();
+        if (id) {
+            history.push(`/galleries/${retrievedGallery.id}`);
+        } else {
+            history.push("/galleries/me");
         }
     }
 
@@ -58,6 +78,11 @@ export default function CreateGallery() {
         if(id){
             setNewGallery(retrievedGallery);
             setNewImages(retrievedGallery?.images);
+            if (!retrievedGallery) {
+                alert("You cannot edit other people's galleries");
+                history.push("/galleries");
+                return;
+            }
         }
     }, [id])
 
@@ -89,7 +114,10 @@ export default function CreateGallery() {
                     )
                 })}
 
-                <button type="submit">{id ? "Edit" : "Submit"}</button>     
+                <span>
+                    <button type="submit">{id ? "Edit" : "Submit"}</button>
+                    <button onClick={handleCancel}>Cancel</button>     
+                </span>
             </form>
 
         </div>

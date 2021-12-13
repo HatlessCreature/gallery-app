@@ -41,10 +41,9 @@ function* handleEditGallery(action){
     try {
         console.log(action);
         const gallery = yield call(galleryService.editGallery, action.payload.newGallery.galleryId, action.payload.newGallery);
-        const galleries = yield call(galleryService.getGalleries, 1, null, null);
-        yield put(setGalleries(galleries));
+        yield put(setGalleriesWithNewGallery(gallery));
     } catch (error) {
-        alert(error.message);
+        alert(error);
     }
 }
 

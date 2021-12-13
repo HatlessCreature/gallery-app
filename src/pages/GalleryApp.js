@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ export default function GalleryApp(){
     const formattedDate = useFormattedDate(gallery ? gallery.created_at : "", "dd-MM-yyyy HH:mm");
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const activeUser = useSelector(selectActiveUser);
+    const history = useHistory();
     const [newComment, setNewComment] = useState(
         {content: ""});
 
@@ -29,6 +30,7 @@ export default function GalleryApp(){
     const handleAddNewComment = (e) => {
         e.preventDefault();
         dispatch(createComment({ content: newComment, galleryId: id}));
+        setNewComment({content: ""});
     }
 
     const handleDeleteComment = (id) => {
@@ -37,6 +39,9 @@ export default function GalleryApp(){
             return;
         }
         dispatch(deleteComment(id));
+        setTimeout(() => {
+            history.go(0);
+        }, 1500);
     }
 
     const handleDeleteGallery = () => {
@@ -45,6 +50,9 @@ export default function GalleryApp(){
             return;
         }
         dispatch(deleteGallery(id));
+        setTimeout(() => {
+            history.push("/galleries/me");
+        }, 1500);
     }
 
     return (

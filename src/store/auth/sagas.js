@@ -8,7 +8,7 @@ function* handleRegister(action){
         yield put(setToken(token));
         yield put(setActiveUser(user));
     } catch (error){
-        alert("Invalid input data");
+        alert("Invalid input data, make sure the password contains at least 8 characters, one of which is a number.");
     }
 }
 
@@ -41,7 +41,7 @@ function* handleGetActiveUser(){
     } catch (error) {
         yield put(setToken(null));
         yield put(setActiveUser(null));
-        alert("Session timed out");
+        alert("Unauthorised access.");
     }
 }
 
