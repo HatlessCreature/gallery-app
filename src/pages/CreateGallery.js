@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Redirect, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { selectGallery, createGallery, editGallery } from "../store/galleries";
-import { selectActiveUser } from "../store/auth";
 
 export default function CreateGallery() {
     const dispatch = useDispatch();
     const retrievedGallery = useSelector(selectGallery);
     const { id } = useParams();
     const history = useHistory();
-    const activeUser = useSelector(selectActiveUser);
     const [newGallery, setNewGallery] = useState({
         title: "",
         description: "",

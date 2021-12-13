@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGalleries, getGalleries, selectSearchTerm, setSearchUserId } from "../store/galleries";
-import { selectActiveUser, selectIsAuthenticated } from "../store/auth";
 import { useParams } from "react-router-dom";
 import GalleryRow from "../components/GalleryRow";
 import GallerySearch from "../components/GallerySearch";
@@ -10,8 +9,6 @@ import GallerySearch from "../components/GallerySearch";
 export default function GalleriesApp({selfId} = null) {
     const galleries = useSelector(selectGalleries);
     const term = useSelector(selectSearchTerm);
-    const activeUser = useSelector(selectActiveUser);
-    const isAuthenticated = useSelector(selectIsAuthenticated);
     const dispatch = useDispatch();
     const { id } = useParams();
 

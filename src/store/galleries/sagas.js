@@ -33,17 +33,16 @@ function* handleCreateGallery(action){
         const newGallery = yield call(galleryService.createGallery, action.payload);
         yield put(setGalleriesWithNewGallery(newGallery));
     } catch (error) {
-        alert(error.message);
+        alert("Title should be at least 2 and at most 255 characters long and images must be in jpg, jpeg or png format");
     }
 }
 
 function* handleEditGallery(action){
     try {
-        console.log(action);
         const gallery = yield call(galleryService.editGallery, action.payload.newGallery.galleryId, action.payload.newGallery);
         yield put(setGalleriesWithNewGallery(gallery));
     } catch (error) {
-        alert(error);
+        alert("Title should be at least 2 and at most 255 characters long and images must be in jpg, jpeg or png format");
     }
 }
 
@@ -63,8 +62,8 @@ function* handleCreateComment(action){
         console.log(action);
         const newComment = yield call(galleryService.createComment, action.payload.content, action.payload.galleryId);
         yield put(setGalleryWithNewComment(newComment));
-    } catch ({message}) {
-        alert(message);
+    } catch (error) {
+        alert("Comment can be at most 1000 characters long");
     }
 }
 

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getGalleries, selectSearchUserId, setSearchTerm } from "../store/galleries";
-import { selectSearchTerm, setSearchUserId } from "../store/galleries";
+import { selectSearchTerm } from "../store/galleries";
 
 export default function GallerySearch() {
     const term = useSelector(selectSearchTerm);
